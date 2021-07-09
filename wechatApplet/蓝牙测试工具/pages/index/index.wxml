@@ -1,0 +1,57 @@
+<view class="margin">
+  <view class="flex">
+    <button disabled="{{isDvailable?false:true}}" class="cu-btn bg-{{isSearchIng?'red':'green'}} lg shadow"
+      bindtap="searchBlueTooth">{{isSearchIng?'停止搜索蓝牙设备':'开始搜索蓝牙设备'}}</button>
+  </view>
+  <view class="text-center margin-top text-lg text-red" wx:if="{{tipsText!=''}}">
+    {{tipsText}}
+  </view>
+</view>
+
+<view class="cu-card article" wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+  <view class="cu-item shadow solids">
+    <view class="title bg-gray flex justify-between align-center">
+      <view class="text-cut">{{item.name}}</view>
+      <view>
+        <button wx:if="{{!item.isConnected}}" size="default" class="cu-btn bg-green shadow" data-index="{{index}}"
+          bindtap="connect">连接</button>
+        <button wx:else size="default" class="cu-btn bg-red shadow" data-index="{{index}}" bindtap="close">断开</button>
+      </view>
+    </view>
+    <view class="content bg-gray">
+      <view class="desc">
+        <view class="text-content padding-bottom">
+          <view>deviceId:{{item.deviceId}}</view>
+          <view>RSSI:{{item.RSSI}}</view>
+          <view wx:if="{{item.serviceId!=''}}">serviceId:{{item.serviceId}}</view>
+          <view wx:if="{{item.writeId!=''}}">writeId:{{item.writeId}}</view>
+          <view wx:if="{{item.notifyId!=''}}">notifyId:{{item.notifyId}}</view>
+        </view>
+      </view>
+    </view>
+    <block wx:if="{{item.isConnected}}">
+      <view class="flex justify-between align-center margin">
+        <view class="basis-lg"><input bindinput="bindInput" data-name="value" type="text" value="{{item.value}}"
+            class="solids padding-xs" placeholder="输入要发送的指令内容" data-index="{{index}}"></input>
+        </view>
+        <view class="basis-xs"><button class="cu-btn bg-green shadow btn-send" data-index="{{index}}"
+            bindtap="send">发送</button></view>
+        <view class="basis-xs"><button class="cu-btn bg-yellow shadow btn-send" data-index="{{index}}"
+            bindtap="clearSend">清空</button></view>
+      </view>
+      <view class="content" wx:if="{{item.info.length>0}}">
+        <view class="desc padding-bottom">
+          <view class="text-content">
+            <view wx:for="{{item.info}}" wx:for-index="i" wx:for-item="d" wx:key="i">
+              <view class="text-{{d.type==0?'green':'blue'}}">
+                <text>[{{d.type==0?'发送':'接收'}}]</text>
+                <text>[{{d.time}}]</text>
+                <text>{{d.value}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

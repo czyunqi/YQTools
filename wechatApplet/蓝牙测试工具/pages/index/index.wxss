@@ -1,0 +1,16 @@
+page {
+  background-color: #ffffff;
+}
+
+.cu-card.article>.cu-item .content .text-content,
+input {
+  height: auto;
+}
+
+.btn-send {
+  border-radius: 0;
+}
+
+.cu-card.article>.cu-item {
+  padding-bottom: 0;
+}

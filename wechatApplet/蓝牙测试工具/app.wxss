@@ -1,0 +1,5 @@
+@import "./css/public.wxss";
+
+button:not([size='mini']) {
+  width: auto !important;
+}

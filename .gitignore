@@ -1,0 +1,5 @@
+.gitgnore
+.vscode
+/docs/
+/YQTools/
+/node_modules/
